@@ -61,6 +61,7 @@ int term::save_file(){
         for (int i = 0; i < this->lectures.size(); i++)
         {
             lecture tmp = lectures.at(i);
+            tmp.calculate_average();
             file<< tmp.get_name() << ","
                 << tmp.get_day() << ","
                 << tmp.get_start_time() << ","

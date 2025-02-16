@@ -20,9 +20,17 @@ float lecture::get_start_time(){ return this->start_time; }
 
 float lecture::get_end_time(){ return this->end_time; }
 
-int lecture::get_lecture_duration(){ return this->end_time - this->start_time; }
-
 int lecture::get_exam_number(){ return exams.size(); }
+
+exam* lecture::get_exam(string name){
+    for(int i = 0; i < exams.size(); i++){
+        if(name == exams.at(i).get_name()){
+            return &exams.at(i);
+        }
+    }
+    cout << "Exam Not Found!" << endl;
+    return NULL;
+}
 
 exam* lecture::get_exam(int index){
     if (index < exams.size()){
@@ -106,6 +114,7 @@ void lecture::calculate_average(){
     }
 
     this->average = total;
+    this->degree = average / 25;
 }
 
 

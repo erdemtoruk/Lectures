@@ -24,12 +24,12 @@ class lecture{
         float get_average();
 
         int get_exam_number();
+        exam* get_exam(string name);
         exam* get_exam(int index);
 
         string get_day();
         float get_start_time();
         float get_end_time();
-        int get_lecture_duration();
 
         void change_name(string new_name);
         void change_day(string new_day);
