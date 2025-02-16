@@ -1,7 +1,8 @@
 {
     "files.associations": {
-        "xstring": "cpp",
-        "system_error": "cpp",
-        "xlocale": "cpp"
+        "iostream": "cpp",
+        "fstream": "cpp",
+        "iosfwd": "cpp",
+        "vector": "cpp"
     }
 }

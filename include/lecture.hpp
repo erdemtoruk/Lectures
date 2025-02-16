@@ -1,5 +1,4 @@
-#include <string>
-#include <iostream>
+#include <vector>
 
 #include "exam.hpp"
 
@@ -15,14 +14,17 @@ class lecture{
         float start_time;
         float end_time;
 
-        int num_exams;
-        exam exams[];
+        vector<exam> exams;
 
     public:
-        lecture(string _name, string _day, float _start_time, float _end_time, float _average = 0, float _degree = 0);
+        lecture(string _name, string _day, float _start_time, float _end_time, float _average, float _degree);
 
         string get_name();
         string get_degree();
+        float get_average();
+
+        int get_exam_number();
+        exam get_exam(int index);
 
         string get_day();
         float get_start_time();
@@ -34,8 +36,10 @@ class lecture{
         void change_start_time(float new_start_time);
         void change_end_time(float new_end_time);
         
-        void calculate_average();
+        int add_exam(string name, string date, float percentage, float score);
 
-        
-        //int save_file();
+        int delete_exam(string name);
+        int delete_exam(int index);
+
+        void calculate_average();     
 };

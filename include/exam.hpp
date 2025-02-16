@@ -7,16 +7,16 @@ class exam{
     private:
         string name;
         string date;
-        int percentage;
-        int score;
+        float percentage;
+        float score;
 
     public:
-        exam(string _name, string _date, int _percentage, int _score = 0);
+        exam(string _name, string _date, float _percentage, float _score);
 
         string get_name();
         string get_date();
-        int get_percentage();
-        int get_score();
+        float get_percentage();
+        float get_score();
 
         void change_name(string new_name);
         void change_date(string new_date);
