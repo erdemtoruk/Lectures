@@ -5,22 +5,22 @@ term::term(string _name)
 
 string term::get_name(){ return this->name; }
 
-lecture term::get_lecture(string name){
+lecture* term::get_lecture(string name){
     for(int i = 0; i < lectures.size(); i++){
         if(name == lectures.at(i).get_name()){
-            return lectures.at(i);
+            return &lectures.at(i);
         }
     }
     cout << "Lecture Not Found!" << endl;
-    return lecture("NULL", "NULL", 0, 0, 0, 0);
+    return NULL;
 }
 
-lecture term::get_lecture(int index){
+lecture* term::get_lecture(int index){
     if(index < lectures.size()){
-        return lectures.at(index);
+        return &lectures.at(index);
     }
     cout << "Lecture Not Found!" << endl;
-    return lecture("NULL", "NULL", 0, 0, 0, 0);
+    return NULL;
 }
 
 void term::add_lecture(string name, string day, float start_time, float end_time, float average, float degree){
@@ -70,11 +70,11 @@ int term::save_file(){
 
             
             for(int j = 0; j < tmp.get_exam_number(); j++){
-                exam exam = tmp.get_exam(j);
-                file<< exam.get_name() << ","
-                    << exam.get_score() << ","
-                    << exam.get_percentage() << ","
-                    << exam.get_date() << "\n";
+                exam* exam = tmp.get_exam(j);
+                file<< exam->get_name() << ","
+                    << exam->get_score() << ","
+                    << exam->get_percentage() << ","
+                    << exam->get_date() << "\n";
             }
             file << "--------------------------\n";
         }
@@ -119,7 +119,7 @@ term term::read_file(string name){
         // Yeni bir lecture objesi oluştur
         lecture l(name, day, start_time, end_time, average, degree);
 
-        // Sınavları ekleyelim
+        // Sınavları ekle
         while (getline(file, line) && line != "--------------------------") {
             stringstream ss_exam(line);
             string exam_name, exam_date;

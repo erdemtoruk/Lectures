@@ -24,13 +24,13 @@ int lecture::get_lecture_duration(){ return this->end_time - this->start_time; }
 
 int lecture::get_exam_number(){ return exams.size(); }
 
-exam lecture::get_exam(int index){
+exam* lecture::get_exam(int index){
     if (index < exams.size()){
-        return exams.at(index);
+        return &exams.at(index);
     }
     else{
         cout << "Invalid index!" << endl;
-        return exam("NULL", "NULL", 0, 0);
+        return NULL;
     } 
 }
 

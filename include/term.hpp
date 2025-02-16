@@ -14,8 +14,8 @@ class term{
         term(string name);
 
         string get_name();
-        lecture get_lecture(string name);
-        lecture get_lecture(int index);
+        lecture* get_lecture(string name);
+        lecture* get_lecture(int index);
 
         void add_lecture(string name, string day, float start_time, float end_time, float average, float degree);
         void add_lecture(lecture& l);

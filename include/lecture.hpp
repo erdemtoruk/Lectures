@@ -24,7 +24,7 @@ class lecture{
         float get_average();
 
         int get_exam_number();
-        exam get_exam(int index);
+        exam* get_exam(int index);
 
         string get_day();
         float get_start_time();
