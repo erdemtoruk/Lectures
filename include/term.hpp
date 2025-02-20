@@ -17,13 +17,13 @@ class term{
         lecture* get_lecture(string name);
         lecture* get_lecture(int index);
 
-        void add_lecture(string name, string day, float start_time, float end_time, float average, float degree);
+        void add_lecture(string name, string day, float start_time, float end_time);
         void add_lecture(lecture& l);
 
         int delete_lecture(string name);
         int delete_lecture(int index);
 
-        
+        void interface();
         static term read_file(string name);
         int save_file();
 };

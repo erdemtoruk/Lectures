@@ -16,8 +16,10 @@ class lecture{
 
         vector<exam> exams;
 
+        void calculate_average();
+        
     public:
-        lecture(string _name, string _day, float _start_time, float _end_time, float _average, float _degree);
+        lecture(string _name, string _day, float _start_time, float _end_time);
 
         string get_name();
         string get_degree();
@@ -39,7 +41,5 @@ class lecture{
         int add_exam(string name, string date, float percentage, float score);
 
         int delete_exam(string name);
-        int delete_exam(int index);
-
-        void calculate_average();     
+        int delete_exam(int index);     
 };
