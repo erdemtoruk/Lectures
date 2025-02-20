@@ -23,8 +23,8 @@ lecture* term::get_lecture(int index){
     return NULL;
 }
 
-void term::add_lecture(string name, string day, float start_time, float end_time, float average, float degree){
-    lectures.push_back(lecture(name, day, start_time, end_time, average, degree));
+void term::add_lecture(string name, string day, float start_time, float end_time){
+    lectures.push_back(lecture(name, day, start_time, end_time));
 }
 
 void term::add_lecture(lecture& l){
@@ -61,7 +61,7 @@ int term::save_file(){
         for (int i = 0; i < this->lectures.size(); i++)
         {
             lecture tmp = lectures.at(i);
-            tmp.calculate_average();
+            //tmp.calculate_average();
             file<< tmp.get_name() << ","
                 << tmp.get_day() << ","
                 << tmp.get_start_time() << ","
@@ -118,7 +118,7 @@ term term::read_file(string name){
         ss >> degree;
 
         // Yeni bir lecture objesi oluştur
-        lecture l(name, day, start_time, end_time, average, degree);
+        lecture l(name, day, start_time, end_time);
 
         // Sınavları ekle
         while (getline(file, line) && line != "--------------------------") {
@@ -142,4 +142,224 @@ term term::read_file(string name){
 
     file.close();
     return new_term;
+}
+
+void term::interface(){
+    while(true){
+        cout << "Select the action you want to take: " << endl;
+        cout << "0- Exit \n1- Get Lecture \n2- Add Lecture \n3- Delete Lecture \n";
+
+        int choose = -1;
+        string str_input;
+        float float_input;
+        cin >> choose;
+
+        if(choose == 0)
+            break;
+
+        else if(choose == 1){
+            cout << "Enter lecture name: ";
+            cin >> str_input;
+            cout << endl;
+            lecture* lec = this->get_lecture(str_input);
+
+            if(lec){
+                while(true){
+                    cout << "Select the action you want to take: " << endl;
+                    cout << "0- Back \n11- Show name \n12- Show date \n13- Show degree \n14- Show exam number\n"
+                         << "21- Change name \n22- Change day \n23- Change start time \n24- Change end time \n"
+                         << "31- Get exam \n32- Add exam \n33-Delete exam \n";
+
+                    cin >> choose;
+
+                    if(choose == 0)
+                        break;
+
+                    else if(choose == 11)
+                        cout << "Lecture name: " << lec->get_name() << endl;
+                    
+                    else if(choose == 12)
+                        cout << lec->get_day() << " " << lec->get_start_time() << "-" << lec->get_end_time() << endl;
+
+                    else if(choose == 13)
+                        cout << "Cumulative average: " << lec->get_average() << "Expected degree: " << lec->get_degree() << endl;
+                    
+                    else if(choose == 14)
+                        cout << "Exam number is " << lec->get_exam_number() << endl;
+
+                    else if(choose == 21){
+                        cout << "Enter new name: ";
+                        cin >> str_input;
+                        cout << endl;
+
+                        lec->change_name(str_input);
+                    }
+                    else if(choose == 22){
+                        cout << "Enter new day: ";
+                        cin >> str_input;
+                        cout << endl;
+
+                        lec->change_day(str_input);
+                    }
+                    else if(choose == 23){
+                        cout << "Enter new start time: ";
+                        cin >> float_input;
+                        cout << endl;
+
+                        lec->change_start_time(float_input);
+                    }
+                    else if(choose == 24){
+                        cout << "Enter new end time: ";
+                        cin >> float_input;
+                        cout << endl;
+
+                        lec->change_end_time(float_input);
+                    }
+                    else if(choose == 31){
+                        cout << "Enter exam name: ";
+                        cin >> str_input;
+                        cout << endl;
+                        exam* ex = lec->get_exam(str_input);
+
+                        if(ex){
+                            while(true){
+                                cout << "Select the action you want to take: " << endl;
+                                cout << "0- Back \n11- Show name \n12- Show date \n13- Show percentage \n14- Show score\n"
+                                     << "21- Change name \n22- Change date \n23- Change percentage \n24- Change score \n";
+
+                                cin >> choose;
+
+                                if(choose == 0)
+                                    break;
+                                
+                                else if(choose == 11)
+                                    cout << "Exam name is " << ex->get_name() << endl;
+
+                                else if(choose == 12)
+                                    cout << "Exam date is " << ex->get_date() << endl;
+                                    
+                                else if(choose == 13)
+                                    cout << "Exam percentage is " << ex->get_percentage() << endl;
+
+                                else if(choose == 14)
+                                    cout << "Exam score is " << ex->get_score() << endl;
+
+                                else if(choose == 21){
+                                    cout << "Enter new name: ";
+                                    cin >> str_input;
+                                    cout << endl;
+
+                                    ex->change_name(str_input);
+                                }
+                                else if(choose == 22){
+                                    cout << "Enter new date: ";
+                                    cin >> str_input;
+                                    cout << endl;
+
+                                    ex->change_date(str_input);
+                                }
+                                else if(choose == 23){
+                                    cout << "Enter new percentage: ";
+                                    cin >> float_input;
+                                    cout << endl;
+
+                                    ex->change_percentage(float_input);
+                                }
+                                else if(choose == 24){
+                                    cout << "Enter new score: ";
+                                    cin >> float_input;
+                                    cout << endl;
+
+                                    ex->change_score(float_input);
+                                }
+                                else
+                                    cout << "Invalid number!" << endl;
+                            }
+                        }
+                        else
+                            cout << "This exam not exist!" << endl;
+                    }
+                    else if(choose == 32){
+                        string name;
+                        string date;
+                        float percentage;
+                        float score;
+
+                        cout << "Enter exam name: ";
+                        cin >> name;
+                        cout << endl;
+                        
+                        cout << "Enter exam date: ";
+                        cin >> date;
+                        cout << endl;
+
+                        cout << "Enter exam percentage: ";
+                        cin >> percentage;
+                        cout << endl;
+
+                        cout << "Enter exam score: ";
+                        cin >> score;
+                        cout << endl;
+
+                        if(lec->add_exam(name, date, percentage, score) == 0)
+                            cout << "Exam added!" << endl;
+                        else
+                            cout << "Exam can not added!" << endl;
+                    }
+                    else if(choose == 33){
+                        cout << "Enter exam name to delete: ";
+                        cin >> str_input;
+                        cout << endl;
+
+                        if(lec->delete_exam(str_input) == 0)
+                            cout << "Exam deleted!" << endl;
+                        else
+                            cout << "Exam can not deleted!" << endl;
+                    }
+                    else
+                        cout << "Invalid number!" << endl;
+                }
+            }
+            else{
+                cout << "This lecture not exist!" << endl;
+            }
+        }
+        else if(choose == 2){
+            string name;
+            string day;
+            float start_time;
+            float end_time;
+
+            cout << "Enter lecture name: ";
+            cin >> name;
+            cout << endl;
+                        
+            cout << "Enter lecture day: ";
+            cin >> day;
+            cout << endl;
+
+            cout << "Enter lecture start time: ";
+            cin >> start_time;
+            cout << endl;
+
+            cout << "Enter lecture end time: ";
+            cin >> end_time;
+            cout << endl;
+
+            this->add_lecture(name, day, start_time, end_time);
+            cout << "Lecture added!" << endl;
+        }
+        else if(choose == 3){
+            cout << "Enter name of lecture to delete: ";
+            cin >> str_input;
+            cout << endl;
+
+            if(this->delete_lecture(str_input) == 0)
+                cout << "Lecture deleted!" << endl;
+            else
+                cout << "Lecture can not deleted!" << endl;
+        }
+        else
+            cout << "Invalid number!" << endl;
+    }
 }

@@ -4,8 +4,8 @@ using namespace std;
 
 string notes[] = {"FF", "FF", "FF", "FF", "DD", "DD+", "DC", "DC+", "CC", "CC+", "CB", "CB+", "BB", "BB+", "BA", "BA+", "AA"};
 
-lecture::lecture(string _name, string _day, float _start_time, float _end_time, float _average, float _degree)
-    : name(_name), day(_day), start_time(_start_time), end_time(_end_time), average(_average), degree(_degree){
+lecture::lecture(string _name, string _day, float _start_time, float _end_time)
+    : name(_name), day(_day), start_time(_start_time), end_time(_end_time), average(0), degree(0){
 
     if(this->start_time < 8.0f || this->start_time >= this->end_time || this->end_time > 18.0f){
         cout << "Invalid time!" << endl;
@@ -44,7 +44,7 @@ exam* lecture::get_exam(int index){
 
 string lecture::get_degree(){ return notes[int(this->degree / 0.25)]; }
 
-float lecture::get_average(){ return this->average; }
+float lecture::get_average(){ calculate_average(); return this->average; }
 
 void lecture::change_name(string new_name){ this->name = new_name; }
 
