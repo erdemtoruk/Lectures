@@ -10,8 +10,6 @@ class term{
     private:
         string name;
         vector<lecture> lectures;
-    public:
-        term(string name);
 
         string get_name();
         lecture* get_lecture(string name);
@@ -23,7 +21,11 @@ class term{
         int delete_lecture(string name);
         int delete_lecture(int index);
 
+    public:
+        term(string name);
+
         void interface();
+        
         static term read_file(string name);
         int save_file();
 };

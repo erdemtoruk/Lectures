@@ -16,6 +16,7 @@ class lecture{
 
         vector<exam> exams;
 
+        // 
         void calculate_average();
         
     public:
