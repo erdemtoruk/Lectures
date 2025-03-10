@@ -182,7 +182,7 @@ void term::interface(){
                         cout << lec->get_day() << " " << lec->get_start_time() << "-" << lec->get_end_time() << endl;
 
                     else if(choose == 13)
-                        cout << "Cumulative average: " << lec->get_average() << "Expected degree: " << lec->get_degree() << endl;
+                        cout << "Cumulative average: " << lec->get_average() << endl << "Expected degree: " << lec->get_degree() << endl;
                     
                     else if(choose == 14)
                         cout << "Exam number is " << lec->get_exam_number() << endl;
