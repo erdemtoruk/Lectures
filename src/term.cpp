@@ -51,6 +51,23 @@ int term::delete_lecture(int index){
     return 1;
 }
 
+void term::get_schedule(){
+    for (int i = 0; i < lectures.size(); i++){
+        lecture temp_lec = lectures.at(i);
+        cout << "Lecture name: " << temp_lec.get_name() << endl;
+        cout << "Predicted degree: " << temp_lec.get_degree() << endl;
+        for(int j = 0; j < temp_lec.get_exam_number(); j++){
+            //sadece ilerdeki sınavları gösterme mekanizması ekle
+            exam* temp_exam = temp_lec.get_exam(j);
+            cout << "Exam name: " << temp_exam->get_name() << endl;
+            cout << "Percentage: " << temp_exam->get_percentage() << endl;
+            cout << "Date: " << temp_exam->get_date() << endl;
+        }
+        cout << "-------------------------------------" << endl;
+    }
+    
+}
+
 int term::save_file(){
     string filename = "../save/" + get_name() + ".csv";
     ofstream file(filename);
@@ -147,7 +164,7 @@ term term::read_file(string name){
 void term::interface(){
     while(true){
         cout << "Select the action you want to take: " << endl;
-        cout << "0- Exit \n1- Get Lecture \n2- Add Lecture \n3- Delete Lecture \n";
+        cout << "0- Exit \n1- Get Lecture \n2- Add Lecture \n3- Delete Lecture \n4- Get Schedule\n";
 
         int choose = -1;
         string str_input;
@@ -359,6 +376,8 @@ void term::interface(){
             else
                 cout << "Lecture can not deleted!" << endl;
         }
+        else if(choose == 4)
+            this->get_schedule();
         else
             cout << "Invalid number!" << endl;
     }

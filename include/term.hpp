@@ -21,6 +21,7 @@ class term{
         int delete_lecture(string name);
         int delete_lecture(int index);
 
+        void get_schedule();
     public:
         term(string name);
 
