@@ -1,4 +1,6 @@
 #include "../include/term.hpp"
+#include <sstream>
+#include <ctime>
 
 term::term(string _name)
     : name(_name) {}
@@ -51,17 +53,42 @@ int term::delete_lecture(int index){
     return 1;
 }
 
+bool term::is_future_date(string dateStr) {
+    int day, month, year;
+    char delimiter;
+
+    std::istringstream dateStream(dateStr);
+    dateStream >> day >> delimiter >> month >> delimiter >> year;
+
+    std::tm date_tm = {};
+    date_tm.tm_mday = day;
+    date_tm.tm_mon = month - 1;
+    date_tm.tm_year = year - 1900;
+    date_tm.tm_hour = 0;
+    date_tm.tm_min = 0;
+    date_tm.tm_sec = 0;
+
+    std::time_t input_time = std::mktime(&date_tm);
+
+    std::time_t now = std::time(nullptr);
+
+    return difftime(input_time, now) > 0;
+}
+
 void term::get_schedule(){
     for (int i = 0; i < lectures.size(); i++){
         lecture temp_lec = lectures.at(i);
         cout << "Lecture name: " << temp_lec.get_name() << endl;
         cout << "Predicted degree: " << temp_lec.get_degree() << endl;
+        cout << "----------" << endl;
         for(int j = 0; j < temp_lec.get_exam_number(); j++){
-            //sadece ilerdeki sınavları gösterme mekanizması ekle
             exam* temp_exam = temp_lec.get_exam(j);
-            cout << "Exam name: " << temp_exam->get_name() << endl;
-            cout << "Percentage: " << temp_exam->get_percentage() << endl;
-            cout << "Date: " << temp_exam->get_date() << endl;
+            if(is_future_date(temp_exam->get_date())){
+                cout << "Exam name: " << temp_exam->get_name() << endl;
+                cout << "Percentage: " << temp_exam->get_percentage() << endl;
+                cout << "Date: " << temp_exam->get_date() << endl;
+                cout << "-----" << endl;
+            }
         }
         cout << "-------------------------------------" << endl;
     }
