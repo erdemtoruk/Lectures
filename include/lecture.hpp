@@ -8,7 +8,6 @@ class lecture{
     private:
         string name;
         float average;
-        float degree;
 
         string day;
         float start_time;

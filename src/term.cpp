@@ -106,19 +106,19 @@ int term::save_file(){
         {
             lecture tmp = lectures.at(i);
             //tmp.calculate_average();
-            file<< tmp.get_name() << ","
-                << tmp.get_day() << ","
-                << tmp.get_start_time() << ","
-                << tmp.get_end_time() << ","
-                << tmp.get_average() << ","
+            file<< tmp.get_name() << ";"
+                << tmp.get_day() << ";"
+                << tmp.get_start_time() << ";"
+                << tmp.get_end_time() << ";"
+                << tmp.get_average() << ";"
                 << tmp.get_degree() << "\n";
 
             
             for(int j = 0; j < tmp.get_exam_number(); j++){
                 exam* exam = tmp.get_exam(j);
-                file<< exam->get_name() << ","
-                    << exam->get_score() << ","
-                    << exam->get_percentage() << ","
+                file<< exam->get_name() << ";"
+                    << exam->get_score() << ";"
+                    << exam->get_percentage() << ";"
                     << exam->get_date() << "\n";
             }
             file << "--------------------------\n";
@@ -151,14 +151,14 @@ term term::read_file(string name){
         string name, day;
         float start_time, end_time, average, degree;
 
-        getline(ss, name, ',');
-        getline(ss, day, ',');
+        getline(ss, name, ';');
+        getline(ss, day, ';');
         ss >> start_time;
-        ss.ignore();  // Virgülün atlanması için
+        ss.ignore();  // Noktalı Virgülün atlanması için
         ss >> end_time;
-        ss.ignore();  // Virgülün atlanması için
+        ss.ignore();  // Noktalı Virgülün atlanması için
         ss >> average;
-        ss.ignore();  // Virgülün atlanması için
+        ss.ignore();  // Noktalı Virgülün atlanması için
         ss >> degree;
 
         // Yeni bir lecture objesi oluştur
@@ -170,12 +170,12 @@ term term::read_file(string name){
             string exam_name, exam_date;
             float score, percentage;
 
-            getline(ss_exam, exam_name, ',');
+            getline(ss_exam, exam_name, ';');
             ss_exam >> score;
-            ss_exam.ignore();  // Virgülün atlanması için
+            ss_exam.ignore();  // Noktalı Virgülün atlanması için
             ss_exam >> percentage;
-            ss_exam.ignore();  // Virgülün atlanması için
-            getline(ss_exam, exam_date, ',');
+            ss_exam.ignore();  // Noktalı Virgülün atlanması için
+            getline(ss_exam, exam_date, ';');
 
             l.add_exam(exam_name, exam_date, percentage, score);
         }
